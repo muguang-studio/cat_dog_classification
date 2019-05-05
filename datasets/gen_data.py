@@ -104,8 +104,8 @@ def loading(f_name, src_dir):
     f_path = os.path.join(src_dir, f_name)
     d = {}
     # d['image'] = cv2.imread(f_path)
-    label, name, suffix = f_name.split('.')
     d['image'] = cv2.imdecode(np.fromfile(f_path, dtype=np.uint8), -1)
+    label, name, suffix = f_name.split('.')
     d['label'] = 0 if label == 'cat' else 1
     d['imgname'] = '{}{}.{}'.format(label, name, suffix)
     return d
