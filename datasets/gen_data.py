@@ -4,6 +4,7 @@ from joblib import Parallel, delayed
 import cv2
 import copy
 import pickle
+import numpy as np
 
 import ref
 from opts import opts
@@ -101,9 +102,13 @@ def load_and_save(opt, file_name, src_dir, save_dir, split='train'):
 def loading(f_name, src_dir):
     '''加载图片'''
     f_path = os.path.join(src_dir, f_name)
+
+
+
     d = {}
-    d['image'] = cv2.imread(f_path)
+    #d['image'] = cv2.imread(f_path)
     label, name, suffix = f_name.split('.')
+    d['image'] = cv2.imdecode(np.fromfile(f_path, dtype=np.uint8), -1)
     d['label'] = 0 if label == 'cat' else 1
     d['imgname'] = '{}{}.{}'.format(label, name, suffix)
     return d
